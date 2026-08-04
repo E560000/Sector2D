@@ -16,10 +16,12 @@ function loadMap(difficulty)
 
     for line in contents:gmatch("[^\r\n]+") do
         local orientation, timing = line:match("([^,]+),([^,]+)")
-        table.insert(notes, Note(tonumber(timing), tonumber(orientation)))
+        if orientation and timing then
+            table.insert(notes, Note((orientation), tonumber(timing)))
+        end
     end
-    for i in notes do
-      print(notes[i])
+    for i, note in ipairs(notes) do
+        print(note.Type, note.Timing)
     end
     return notes
 end
