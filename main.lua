@@ -443,7 +443,7 @@ function love.draw()
     love.graphics.setFont(cubic)
     love.graphics.setColor(1,1,1)
     love.graphics.draw(signature,-730,200,0,0.4,0.4)
-    love.graphics.print("Version 0.2.2BETA", -700,325,0,0.5,0.5)
+    love.graphics.print("Version 0.2.3_Alpha", -700,325,0,0.5,0.5)
     
     --buttons
     if hover.button1==1 then      
