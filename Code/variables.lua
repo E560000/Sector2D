@@ -13,7 +13,7 @@ colourA={r=1,g=1,b=1}
 colourB={r=1,g=1,b=1}
 leftstate="unmoved"
 rightstate="unmoved"
-screenState="Editor"
+screenState="Launch"
 --flags for passing maps
 easyPassed=false
 mediumPassed=false
@@ -42,16 +42,18 @@ songNameBright=0
 songName="Death By Glamour -- Toby Fox"
 screenBrightness=0
 -- Editor
+notes={}
+currentNote=1
 bpm=274
 editorBpmMin=60
 editorBpmMax=300
-editorSliderX=-220
-editorSliderWidth=440
-editorSliderY=-140
+editorSliderX=-410
+editorSliderWidth=240
+editorSliderY=-145
 editorSliderHeight=16
 editorSliderDragging=false
 timestamp=0
-step=0
+step=1
 increment=0
 --initialising for menu
 PlayBackgroundMusic=false

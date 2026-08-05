@@ -1,0 +1,2 @@
+E001: No Map Detected. Check Maps folder.
+E002: Map Invalid. Check formatting.

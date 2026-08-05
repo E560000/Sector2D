@@ -9,6 +9,9 @@ require "Code/settings"
 require "Code/parser"
 --Libraries
 Classic = require "Libraries/classic"
+function love.load()
+  notes = loadMap(difficulty)
+end
 function isHovered(x1,x2,y1,y2,x,y)
   x = x or mousePosX
   y = y or mousePosY
@@ -187,15 +190,15 @@ function love.mousepressed(x,y,button,number)
         if difficulty=="Easy" then
           difficulty="Medium"
           songName="Bad Apple -- Unknown"
-          loadMap("Medium")
+          notes = loadMap("Medium")
         elseif difficulty=="Medium" then
           difficulty="Hard"
           songName="Burning Eyes -- Toby Fox"
-          loadMap("Hard")
+          notes = loadMap("Hard")
         else
           difficulty="Easy"
           songName="Death By Glamour -- Toby Fox"
-          loadMap("Easy")
+          notes = loadMap("Easy")
         end
       end
     end
@@ -472,12 +475,6 @@ function love.draw()
     love.graphics.setColor(1,1,1)
     love.graphics.draw(signature,-730,200,0,0.4,0.4)
     love.graphics.print("Version 0.2.3_Alpha", -700,325,0,0.5,0.5)
-    --[[
-    debug info for map data
-    loadMap("Easy")
-    love.graphics.print(notes,0,100)
-    --]]
-    
     --buttons
     if hover.button1==1 then      
       love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
@@ -507,14 +504,26 @@ function love.draw()
   end
   if screenState=="Editor" then
     love.graphics.setFont(rimouski)
-    love.graphics.print(love.mouse.getX(),-400,-300)
-    love.graphics.print(love.mouse.getY(),-400,-275)
-    love.graphics.print("Map Editor",-150,-300,0,2,2)
+    love.graphics.print(mousePosX,-400,-300)
+    love.graphics.print(mousePosY,-400,-275)
+    love.graphics.print("Map Editor",-150,-330,0,2,2)
     love.graphics.print("!Unfinished!",-100,-235)
-    love.graphics.print("BPM:",-310,-180,0,1.5,1.5)
-    love.graphics.print("New Note:",-310,-140,0,1.5,1.5)
-    love.graphics.print("",-310,-100,0,1.5,1.5)
-
+    love.graphics.print("BPM:",-500,-180,0,1.5,1.5)
+    love.graphics.print("New Note:",-500,-140,0,1.5,1.5)
+    love.graphics.print("Mode:",-500,-100,0,1.5,1.5)
+    love.graphics.print("Effect:",-500,-60,0,1.5,1.5)
+    love.graphics.setColor(0.9,0.2,0.2)
+    love.graphics.print("Delete",-500,-20,0,1.5,1.5)
+    love.graphics.setColor(1,1,1)
+    love.graphics.line(200,-400,200,400)
+    love.graphics.print("Current Note:",210,-350,0,2,2)
+    if notes[currentNote] then
+      love.graphics.print("Type: "..notes[currentNote].Type,300,-250,0,1.5,1.5)
+      love.graphics.print("Timing: "..notes[currentNote].Timing,300,-210,0,1.5,1.5)
+      love.graphics.print("Mode: "..notes[currentNote].Mode,300,-170,0,1.5,1.5)
+    else
+      love.graphics.print("No notes",300,-250,0,1.5,1.5)
+    end
     local sliderLeft = editorSliderX
     local sliderTop = editorSliderY - editorSliderHeight
     local sliderRight = editorSliderX + editorSliderWidth
