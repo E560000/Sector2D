@@ -444,6 +444,11 @@ function love.draw()
     love.graphics.setColor(1,1,1)
     love.graphics.draw(signature,-730,200,0,0.4,0.4)
     love.graphics.print("Version 0.2.3_Alpha", -700,325,0,0.5,0.5)
+    --[[
+    debug info for map data
+    loadMap("Easy")
+    love.graphics.print(notes,0,100)
+    --]]
     
     --buttons
     if hover.button1==1 then      
@@ -471,6 +476,14 @@ function love.draw()
     love.graphics.draw(button,-280,10)
     love.graphics.setColor(0,0,0)
     love.graphics.print("Change",-271,11,0,0.5,0.5)
+  end
+  if screenState=="Editor" then
+    love.graphics.setFont(rimouski)
+    love.graphics.print(love.mouse.getX(),-400,-300)
+    love.graphics.print(love.mouse.getY(),-400,-275)
+    love.graphics.print("Map Editor",-200,-300,0,2,2)
+    love.graphics.print("!Unfinished!",-200,-240,0,1.5,1.5)
+    
   end
 end
 loadEnd=love.timer.getTime()

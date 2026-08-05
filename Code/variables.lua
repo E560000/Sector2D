@@ -13,7 +13,7 @@ colourA={r=1,g=1,b=1}
 colourB={r=1,g=1,b=1}
 leftstate="unmoved"
 rightstate="unmoved"
-screenState="Launch"
+screenState="Editor"
 --flags for passing maps
 easyPassed=false
 mediumPassed=false
