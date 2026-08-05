@@ -13,7 +13,7 @@ colourA={r=1,g=1,b=1}
 colourB={r=1,g=1,b=1}
 leftstate="unmoved"
 rightstate="unmoved"
-screenState="Launch"
+screenState="Editor"
 --flags for passing maps
 easyPassed=false
 mediumPassed=false
@@ -33,7 +33,7 @@ okCounter2=0
 missCounter2=0
 --OOP for easy coding
 buttonDimensions={width=80,height=20}
-hover={button1=-1,button2=-1,button3=-1}
+hover={button1=-1,button2=-1,button3=-1,button4=-1,button5=-1,button6=-1,button7=-1,button8=-1,button9=-1,button10=-1,button11=-1}
 hoverColour={r=0.8,g=0.8,b=0.8}
 titleColour={r=0.3,g=0.3,b=0.3}
 titleBright=0
@@ -47,11 +47,14 @@ currentNote=1
 bpm=148
 editorBpmMin=60
 editorBpmMax=300
-editorSliderX=-410
+editorSliderX=-560
 editorSliderWidth=240
 editorSliderY=-145
 editorSliderHeight=16
 editorSliderDragging=false
+editorNewNote="Up"
+editorEffect="Regular"
+editorMode="Regular"
 timestamp=0
 step=1
 increment=0

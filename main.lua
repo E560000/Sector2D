@@ -12,10 +12,8 @@ Classic = require "Libraries/classic"
 function love.load()
   notes = loadMap(difficulty)
 end
-function isHovered(x1,x2,y1,y2,x,y)
-  x = x or mousePosX
-  y = y or mousePosY
-  return x>=x1 and x<=x2 and y>=y1 and y<=y2
+function isHovered(x1,x2,y1,y2)
+  return mousePosX>=x1 and mousePosX<=x2 and mousePosY>=y1 and mousePosY<=y2
 end
 function round(number,decimalPlaces)
   local mult=10^(decimalPlaces or 0)
@@ -201,7 +199,7 @@ function love.mousepressed(x,y,button,number)
           difficulty="Easy"
           songName="Death By Glamour -- Toby Fox"
           notes=loadMap("Easy")
-          bpm=148
+          bpm=148 
         end
       end
     end
@@ -323,6 +321,31 @@ function love.update(dt)
   if screenState=="Editor" then
     if leftclick and editorSliderDragging then
       setEditorBPM(mousePosX)
+    end
+    if isHovered(-430,-400,-125,-85) then
+      hover.button1=1
+    else
+      hover.button1=-1
+    end
+    if isHovered(-385,-355,-125,-85) then
+      hover.button2=1
+    else
+      hover.button2=-1
+    end
+    if isHovered(-340,-310,-125,-85) then
+      hover.button3=1
+    else
+      hover.button3=-1
+    end
+    if isHovered(-293,-263,-125,-85) then
+      hover.button4=1
+    else
+      hover.button4=-1
+    end
+    if isHovered(-505,-365,-73,28) then
+      hover.button5=1
+    else
+      hover.button5=-1
     end
   end
   if screenState=="Play" then
@@ -478,6 +501,7 @@ function love.draw()
     love.graphics.setColor(1,1,1)
     love.graphics.draw(signature,-730,200,0,0.4,0.4)
     love.graphics.print("Version 0.2.3_Alpha", -700,325,0,0.5,0.5)
+    
     --buttons
     if hover.button1==1 then      
       love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
@@ -507,18 +531,54 @@ function love.draw()
   end
   if screenState=="Editor" then
     love.graphics.setFont(rimouski)
+    --button boxes
+    love.graphics.setColor(1,1,1)
+    if hover.button1==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",-430,-125,30,40)--U
+    if hover.button2==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",-385,-125,30,40)--L
+    if hover.button3==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",-340,-125,30,40)--D
+    if hover.button4==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",-293,-125,30,40)--R
+    if hover.button5==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",-505,-73,140,45)
+    love.graphics.setColor(1,1,1)
     love.graphics.print(mousePosX,-400,-300)
     love.graphics.print(mousePosY,-400,-275)
-    love.graphics.print("Map Editor",-150,-330,0,2,2)
-    love.graphics.print("!Unfinished!",-100,-235)
-    love.graphics.print("BPM:",-500,-180,0,1.5,1.5)
-    love.graphics.print("New Note:",-500,-140,0,1.5,1.5)
-    love.graphics.print("Mode:",-500,-100,0,1.5,1.5)
-    love.graphics.print("Effect:",-500,-60,0,1.5,1.5)
+    love.graphics.print("Map Editor",-700,-330,0,2,2)
+    love.graphics.setColor(0.6,0.6,0.6)
+    love.graphics.print("BPM:",-650,-180,0,1.5,1.5)
+    love.graphics.print("New Note:  U  L  D  R",-650,-130,0,1.5,1.5)
+    love.graphics.print("Mode:  Master  Regular",-650,-80,0,1.5,1.5)
+    love.graphics.print("Effect:  Regular  Finish",-650,-30,0,1.5,1.5)
+    love.graphics.print("Step:",-650,20,0,1.5,1.5)
+    love.graphics.print("Next:",-650,70)
+    love.graphics.print("Back:",-650,110)
     love.graphics.setColor(0.9,0.2,0.2)
-    love.graphics.print("Delete",-500,-20,0,1.5,1.5)
+    love.graphics.print("Delete",350,200,0,2,2)
     love.graphics.setColor(1,1,1)
-    love.graphics.line(200,-400,200,400)
+    love.graphics.line(170,-400,170,400)
     love.graphics.print("Current Note:",210,-350,0,2,2)
     if notes[currentNote] then
       love.graphics.print("Type: "..notes[currentNote].Type,300,-250,0,1.5,1.5)
@@ -538,7 +598,6 @@ function love.draw()
     local handleX = sliderLeft + normalized * editorSliderWidth
     love.graphics.setColor(1,1,1)
     love.graphics.rectangle("fill", handleX - 8, sliderTop - 4, 16, editorSliderHeight + 8)
-
     love.graphics.setColor(1,1,1)
     love.graphics.print(""..bpm, sliderRight + 30, editorSliderY - 35, 0, 1.5, 1.5)
   end
