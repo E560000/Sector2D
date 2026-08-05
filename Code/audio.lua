@@ -1,11 +1,12 @@
 --These are all the sound files for the game
---Easy, Medium, Hard, Settings Music made by Toby Fox
+--Easy, Hard, Settings Music made by Toby Fox
+--Medium Music made by Croove
 EasyGameplayAudio=love.audio.newSource("Assets/Audio/DeathByGlamour.mp3","static")
-MediumGameplayAudio=love.audio.newSource("Assets/Audio/BadApple.mp3","static")
+MediumGameplayAudio=love.audio.newSource("Assets/Audio/Aquaris.mp3","static")
 HardGameplayAudio=love.audio.newSource("Assets/Audio/BurningEyes.mp3","static")
 settingsMusic=love.audio.newSource("Assets/Audio/TheDistanceBetweenTwo.mp3","static")
 settingsMusic:setLooping(true)
---Background music made by Frums 
+--Background music made by TJ.hangneil 
 backgroundMusic=love.audio.newSource("Assets/Audio/startup.mp3","static")
 backgroundMusic:setLooping(true)
 --Up, Down, Left, Right, Pop made by Enis Bayram

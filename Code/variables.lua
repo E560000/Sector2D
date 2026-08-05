@@ -13,7 +13,7 @@ colourA={r=1,g=1,b=1}
 colourB={r=1,g=1,b=1}
 leftstate="unmoved"
 rightstate="unmoved"
-screenState="Launch"
+screenState="Editor"
 --flags for passing maps
 easyPassed=false
 mediumPassed=false
@@ -44,7 +44,7 @@ screenBrightness=0
 -- Editor
 notes={}
 currentNote=1
-bpm=274
+bpm=148
 editorBpmMin=60
 editorBpmMax=300
 editorSliderX=-410
@@ -55,6 +55,8 @@ editorSliderDragging=false
 timestamp=0
 step=1
 increment=0
+--animations
+hitLightingColour={r=1,g=1,b=1}
 --initialising for menu
 PlayBackgroundMusic=false
 PlaySettingsMusic=false

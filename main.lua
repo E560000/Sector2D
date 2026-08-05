@@ -189,16 +189,19 @@ function love.mousepressed(x,y,button,number)
       if button==1 then
         if difficulty=="Easy" then
           difficulty="Medium"
-          songName="Bad Apple -- Unknown"
-          notes = loadMap("Medium")
+          songName="Aquaris -- Croove"
+          notes=loadMap("Medium")
+          bpm=140
         elseif difficulty=="Medium" then
           difficulty="Hard"
           songName="Burning Eyes -- Toby Fox"
-          notes = loadMap("Hard")
+          notes=loadMap("Hard")
+          bpm=147.5
         else
           difficulty="Easy"
           songName="Death By Glamour -- Toby Fox"
-          notes = loadMap("Easy")
+          notes=loadMap("Easy")
+          bpm=148
         end
       end
     end
@@ -330,17 +333,17 @@ function love.update(dt)
     end
     PlayBackgroundMusic=false
     if songNameBright==0 then
-      songNameColour.r=songNameColour.r+0.15*dt
-      songNameColour.g=songNameColour.g+0.15*dt
-      songNameColour.b=songNameColour.b+0.15*dt
+      songNameColour.r=songNameColour.r+bpm/60*dt
+      songNameColour.g=songNameColour.g+bpm/60*dt
+      songNameColour.b=songNameColour.b+bpm/60*dt
     elseif songNameBright==1 then
-      songNameColour.r=songNameColour.r-0.15*dt
-      songNameColour.g=songNameColour.g-0.15*dt
-      songNameColour.b=songNameColour.b-0.15*dt
+      songNameColour.r=songNameColour.r-bpm/60*dt
+      songNameColour.g=songNameColour.g-bpm/60*dt
+      songNameColour.b=songNameColour.b-bpm/60*dt
     end
     if songNameColour.r>=1 then
       songNameBright=1
-    elseif songNameColour.r<=0.3 then
+    elseif songNameColour.r<=0 then
       songNameBright=0
     end
   end
