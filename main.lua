@@ -509,9 +509,11 @@ function love.draw()
     love.graphics.setFont(rimouski)
     love.graphics.print(love.mouse.getX(),-400,-300)
     love.graphics.print(love.mouse.getY(),-400,-275)
-    love.graphics.print("Map Editor",-200,-300,0,2,2)
-    love.graphics.print("!Unfinished!",-200,-240)
-    love.graphics.print("BPM:",-310,-140,0,1.5,1.5)
+    love.graphics.print("Map Editor",-150,-300,0,2,2)
+    love.graphics.print("!Unfinished!",-100,-235)
+    love.graphics.print("BPM:",-310,-180,0,1.5,1.5)
+    love.graphics.print("New Note:",-310,-140,0,1.5,1.5)
+    love.graphics.print("",-310,-100,0,1.5,1.5)
 
     local sliderLeft = editorSliderX
     local sliderTop = editorSliderY - editorSliderHeight

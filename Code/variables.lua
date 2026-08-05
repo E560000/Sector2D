@@ -41,15 +41,18 @@ songNameColour={r=0.8,g=0.8,b=0.8}
 songNameBright=0
 songName="Death By Glamour -- Toby Fox"
 screenBrightness=0
--- BPM slider state for Editor
+-- Editor
 bpm=274
 editorBpmMin=60
 editorBpmMax=300
 editorSliderX=-220
 editorSliderWidth=440
-editorSliderY=-100
+editorSliderY=-140
 editorSliderHeight=16
 editorSliderDragging=false
+timestamp=0
+step=0
+increment=0
 --initialising for menu
 PlayBackgroundMusic=false
 PlaySettingsMusic=false
