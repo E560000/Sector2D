@@ -9,12 +9,25 @@ require "Code/settings"
 require "Code/parser"
 --Libraries
 Classic = require "Libraries/classic"
-function isHovered(x1,x2,y1,y2)
-  return mousePosX>=x1 and mousePosX<=x2 and mousePosY>=y1 and mousePosY<=y2
+function isHovered(x1,x2,y1,y2,x,y)
+  x = x or mousePosX
+  y = y or mousePosY
+  return x>=x1 and x<=x2 and y>=y1 and y<=y2
 end
 function round(number,decimalPlaces)
   local mult=10^(decimalPlaces or 0)
   return math.floor(number*mult+0.5)/mult
+end
+function clamp(value,min,max)
+  if value<min then return min end
+  if value>max then return max end
+  return value
+end
+function setEditorBPM(x)
+  local left=editorSliderX
+  local range=editorSliderWidth
+  local normalized=(clamp(x,left,left+range)-left)/range
+  bpm = math.floor(normalized * (editorBpmMax-editorBpmMin) + editorBpmMin + 0.5)
 end
 function hit(key)
   local time=love.timer.getTime()
@@ -194,10 +207,21 @@ function love.mousepressed(x,y,button,number)
       end
     end
   end
+  if screenState=="Editor" then
+    if button==1 then
+      local centeredX = x - (width or love.graphics.getWidth()) / 2
+      local centeredY = y - (height or love.graphics.getHeight()) / 2
+      if isHovered(editorSliderX, editorSliderX + editorSliderWidth, editorSliderY - editorSliderHeight, editorSliderY + editorSliderHeight, centeredX, centeredY) then
+        editorSliderDragging=true
+        setEditorBPM(centeredX)
+      end
+    end
+  end
 end
 function love.mousereleased(x,y,button)
   if button==1 then
     leftclick=false
+    editorSliderDragging=false
   end
 end
 --love.update function refreshes for every frame
@@ -248,7 +272,6 @@ function love.update(dt)
   if screenState=="Launch" then
     PlayBackgroundMusic=true
     PlaySettingsMusic=false
-    bpm = 274
     titleBrightness = (math.sin(love.timer.getTime() * math.pi * 2 * bpm/120) + 1) / 2
     titleColour.r = titleBrightness
     titleColour.g = titleBrightness
@@ -289,6 +312,11 @@ function love.update(dt)
       hover.button3=1
     else
       hover.button3=-1
+    end
+  end
+  if screenState=="Editor" then
+    if leftclick and editorSliderDragging then
+      setEditorBPM(mousePosX)
     end
   end
   if screenState=="Play" then
@@ -482,8 +510,23 @@ function love.draw()
     love.graphics.print(love.mouse.getX(),-400,-300)
     love.graphics.print(love.mouse.getY(),-400,-275)
     love.graphics.print("Map Editor",-200,-300,0,2,2)
-    love.graphics.print("!Unfinished!",-200,-240,0,1.5,1.5)
-    
+    love.graphics.print("!Unfinished!",-200,-240)
+    love.graphics.print("BPM:",-310,-140,0,1.5,1.5)
+
+    local sliderLeft = editorSliderX
+    local sliderTop = editorSliderY - editorSliderHeight
+    local sliderRight = editorSliderX + editorSliderWidth
+    local sliderBottom = editorSliderY + editorSliderHeight
+    love.graphics.setColor(0.3,0.3,0.3)
+    love.graphics.rectangle("fill", sliderLeft, sliderTop, editorSliderWidth, editorSliderHeight)
+
+    local normalized = (bpm - editorBpmMin) / (editorBpmMax - editorBpmMin)
+    local handleX = sliderLeft + normalized * editorSliderWidth
+    love.graphics.setColor(1,1,1)
+    love.graphics.rectangle("fill", handleX - 8, sliderTop - 4, 16, editorSliderHeight + 8)
+
+    love.graphics.setColor(1,1,1)
+    love.graphics.print(""..bpm, sliderRight + 30, editorSliderY - 35, 0, 1.5, 1.5)
   end
 end
 loadEnd=love.timer.getTime()
