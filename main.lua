@@ -36,6 +36,30 @@ function hit(key)
   print(relativeTime,key)
   return(relativeTime)
 end
+--[[
+function saveMap(notes)
+  local result
+  local path="Assets/Maps/"..difficulty..".s2d"
+  if notes == loadMap(difficulty) then
+    result="No changes."
+  else
+    love.filesystem.write(path, notes)
+    result="Saved."
+  end
+  return result
+end
+--]]
+function saveMap(notes, difficulty)
+  local result
+  local path = "Assets/Maps/"..difficulty..".s2d"
+  if notes == loadMap(difficulty) then
+    result = "No changes."
+  else
+    local ok, err = love.filesystem.write(path, notes)
+    result = ok and "Saved." or ("Save failed: "..tostring(err))
+  end
+  return result
+end
 function love.keypressed(key)
   if screenState=="Play" then
     if players==2 then
@@ -218,6 +242,18 @@ function love.mousepressed(x,y,button,number)
       if isHovered(editorSliderX, editorSliderX + editorSliderWidth, editorSliderY - editorSliderHeight, editorSliderY + editorSliderHeight, centeredX, centeredY) then
         editorSliderDragging=true
         setEditorBPM(centeredX)
+      end
+      if isHovered(-430,-400,-125,-85) then
+        notes[currentNote].Type="u"
+      end
+      if isHovered(-385,-355,-125,-85) then
+        notes[currentNote].Type="l"
+      end
+      if isHovered(-340,-310,-125,-85) then
+        notes[currentNote].Type="d"
+      end
+      if isHovered(-293,-263,-125,-85) then
+        notes[currentNote].Type="r"
       end
     end
   end
@@ -581,7 +617,7 @@ function love.draw()
     love.graphics.print("Map Editor",-750,-420,0,2,2)
     love.graphics.setColor(0.6,0.6,0.6)
     love.graphics.print("BPM:",-650,-180,0,1.5,1.5)
-    love.graphics.print("New Note:  U  L  D  R",-650,-130,0,1.5,1.5)
+    love.graphics.print("Orient.:       U  L  D  R",-650,-130,0,1.5,1.5)
     love.graphics.print("Mode:  Master  Regular",-650,-80,0,1.5,1.5)
     love.graphics.print("Effect:  Regular  Finish",-650,-28,0,1.5,1.5)
     love.graphics.print("Step:",-650,20,0,1.5,1.5)
