@@ -342,10 +342,15 @@ function love.update(dt)
     else
       hover.button4=-1
     end
-    if isHovered(-505,-365,-73,28) then
+    if isHovered(-505,-365,-73,23) then
       hover.button5=1
     else
       hover.button5=-1
+    end
+    if isHovered(-347,-187,-73,-23) then
+      hover.button6=1
+    else
+      hover.button6=-1
     end
   end
   if screenState=="Play" then
@@ -530,6 +535,7 @@ function love.draw()
     love.graphics.print("Change",-271,11,0,0.5,0.5)
   end
   if screenState=="Editor" then
+    love.graphics.draw(editorBackground,-800,-490)
     love.graphics.setFont(rimouski)
     --button boxes
     love.graphics.setColor(1,1,1)
@@ -562,16 +568,22 @@ function love.draw()
     else
       love.graphics.setColor(1,1,1)
     end
-    love.graphics.rectangle("fill",-505,-73,140,45)
+    love.graphics.rectangle("fill",-505,-73,140,50)
+    if hover.button6==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",-347,-73,160,50)
     love.graphics.setColor(1,1,1)
-    love.graphics.print(mousePosX,-400,-300)
-    love.graphics.print(mousePosY,-400,-275)
-    love.graphics.print("Map Editor",-700,-330,0,2,2)
+    love.graphics.print(mousePosX,-400,-415)
+    love.graphics.print(mousePosY,-400,-390)
+    love.graphics.print("Map Editor",-750,-420,0,2,2)
     love.graphics.setColor(0.6,0.6,0.6)
     love.graphics.print("BPM:",-650,-180,0,1.5,1.5)
     love.graphics.print("New Note:  U  L  D  R",-650,-130,0,1.5,1.5)
     love.graphics.print("Mode:  Master  Regular",-650,-80,0,1.5,1.5)
-    love.graphics.print("Effect:  Regular  Finish",-650,-30,0,1.5,1.5)
+    love.graphics.print("Effect:  Regular  Finish",-650,-28,0,1.5,1.5)
     love.graphics.print("Step:",-650,20,0,1.5,1.5)
     love.graphics.print("Next:",-650,70)
     love.graphics.print("Back:",-650,110)
