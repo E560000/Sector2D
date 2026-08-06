@@ -36,19 +36,6 @@ function hit(key)
   print(relativeTime,key)
   return(relativeTime)
 end
---[[
-function saveMap(notes, difficulty)
-  local result
-  local path = "Assets/Maps/" .. difficulty .. ".s2d"
-  local lines = {}
-  for _, note in ipairs(notes) do
-    lines[#lines + 1] = note:serialize()
-  end
-  local ok, err = love.filesystem.write(path,table.concat(lines, "\n"))
-  result = ok and "Saved." or ("Save failed: " .. tostring(err))
-  print(result)
-end
---]]
 function saveMap(notes, difficulty)
   local result
   local path = love.filesystem.getWorkingDirectory().."/Maps/" .. difficulty .. ".s2d"
@@ -207,6 +194,12 @@ function love.mousepressed(x,y,button,number)
         backgroundMusicPlaying=-1
       end
     end
+    if isHovered(-60,20,180,200) then
+      if button==1 then
+        screenState="Editor"
+        backgroundMusicPlaying=-1
+      end
+    end
   end
   if screenState=="Settings" then
     if isHovered(500,525,-200,-175) then
@@ -299,6 +292,13 @@ function love.mousepressed(x,y,button,number)
       if isHovered(488,623,139,194) then
         currentNote=currentNote-1
       end
+      if isHovered(345,545,210,265) then--DELETE
+        if notes[currentNote] then
+          table.remove(notes,currentNote)
+        else
+          print("No note to delete!")
+        end
+      end
     end
   end
 end
@@ -368,7 +368,12 @@ function love.update(dt)
     if isHovered(50,130,180,200) then
       hover.button2=1
     else
-      hover.button2=0
+      hover.button2=-1
+    end
+    if isHovered(-60,20,180,200) then
+      hover.button3=1
+    else
+      hover.button3=-1
     end
     if leftclick and isHovered(50,130,180,200) then
       screenState="Settings"
@@ -533,9 +538,15 @@ function love.draw()
       love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
     end
     love.graphics.rectangle("fill",50,180,buttonDimensions.width,buttonDimensions.height)
+    love.graphics.setColor(1,1,1)
+    if hover.button3==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    end
+    love.graphics.rectangle("fill",-60,180,buttonDimensions.width,buttonDimensions.height)
     love.graphics.setColor(0,0,0)
     love.graphics.print("Start",-150,180,0,0.6,0.6)
     love.graphics.print("Settings",60,180,0,0.55,0.55)
+    love.graphics.print("Editor",-43,180,0,0.55,0.55)
     love.graphics.setColor(titleColour.r,titleColour.g,titleColour.b)
     love.graphics.setFont(cubic)
     love.graphics.print("Sector2D",-320,-200,0,2,2)
@@ -790,13 +801,14 @@ function love.draw()
     love.graphics.setColor(1,1,1)
     love.graphics.line(170,-400,170,400)
     love.graphics.print("Current Note:",210,-350,0,2,2)
+    love.graphics.print("Index:"..currentNote,300,-290,0,1.5,1.5)
     if notes[currentNote] then
       love.graphics.print("Type: "..notes[currentNote].Type,300,-250,0,1.5,1.5)
       love.graphics.print("Timing: "..notes[currentNote].Timing,300,-210,0,1.5,1.5)
       love.graphics.print("Mode: "..notes[currentNote].Mode,300,-170,0,1.5,1.5)
       love.graphics.print("Effect:"..notes[currentNote].Effect,300,-130,0,1.5,1.5)
     else
-      love.graphics.print("No notes",300,-250,0,1.5,1.5)
+      love.graphics.print("No note at this index",300,-250,0,1.5,1.5)
     end
     local sliderLeft = editorSliderX
     local sliderTop = editorSliderY - editorSliderHeight
