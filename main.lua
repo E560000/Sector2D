@@ -36,29 +36,21 @@ function hit(key)
   print(relativeTime,key)
   return(relativeTime)
 end
---[[
-function saveMap(notes)
-  local result
-  local path="Assets/Maps/"..difficulty..".s2d"
-  if notes == loadMap(difficulty) then
-    result="No changes."
-  else
-    love.filesystem.write(path, notes)
-    result="Saved."
-  end
-  return result
-end
---]]
 function saveMap(notes, difficulty)
   local result
   local path = "Assets/Maps/"..difficulty..".s2d"
   if notes == loadMap(difficulty) then
     result = "No changes."
   else
-    local ok, err = love.filesystem.write(path, notes)
+    local lines={}
+    for _, note in ipairs(notes) do
+      table.insert(lines,string.format("%s,%d,%s,%s",note.Type,note.Timing,note.Mode,note.Effect))
+    end
+    local text = table.concat(notes, "\n")
+    local ok, err = love.filesystem.write(path, text  )
     result = ok and "Saved." or ("Save failed: "..tostring(err))
   end
-  return result
+  print("Result"..result)
 end
 function love.keypressed(key)
   if screenState=="Play" then
@@ -255,6 +247,36 @@ function love.mousepressed(x,y,button,number)
       if isHovered(-293,-263,-125,-85) then
         notes[currentNote].Type="r"
       end
+      if isHovered(-505,-365,-73,-23) then
+        notes[currentNote].Mode="master"
+      end
+      if isHovered(-347,-187,-73,-23) then
+        notes[currentNote].Mode="regular"
+      end
+      if isHovered(-505,-340,-22,28) then
+        notes[currentNote].Effect="regular"
+      end
+      if isHovered(-325,-205,-22,28) then
+        notes[currentNote].Effect="finish"
+      end
+      if isHovered(-505,-445,35,75) then
+        snap=1/2
+      end
+      if isHovered(-430,-370,35,75) then
+        snap=1/3
+      end
+      if isHovered(-358,-298,35,75) then
+        snap=1/4
+      end
+      if isHovered(-285,-225,35,75) then
+        snap=1/6
+      end
+      if isHovered(-207,-147,35,75) then
+        snap=1/8
+      end
+      if isHovered(-723,-583,325,385) then--SAVE
+        saveMap(notes,difficulty)
+      end
     end
   end
 end
@@ -388,15 +410,60 @@ function love.update(dt)
     else
       hover.button6=-1
     end
-    if isHovered(-505,-340,-22,38) then
+    if isHovered(-505,-340,-22,28) then
       hover.button7=1
     else
       hover.button7=-1
     end
-    if isHovered(-325,-105,-22,28) then
+    if isHovered(-325,-205,-22,28) then
       hover.button8=1
     else
       hover.button8=-1
+    end
+    if isHovered(-505,-445,35,75) then
+      hover.button9=1
+    else
+      hover.button9=-1
+    end
+    if isHovered(-430,-370,35,75) then
+      hover.button10=1
+    else
+      hover.button10=-1
+    end
+    if isHovered(-358,-298,35,75) then
+      hover.button11=1
+    else
+      hover.button11=-1
+    end
+    if isHovered(-285,-225,35,75) then
+      hover.button12=1
+    else
+      hover.button12=-1
+    end
+    if isHovered(-207,-147,35,75) then
+      hover.button13=1
+    else
+      hover.button13=-1
+    end
+    if isHovered(-723,-583,325,385) then
+      hover.button14=1
+    else
+      hover.button14=-1
+    end
+    if isHovered(266,391,139,194) then
+      hover.button15=1
+    else
+      hover.button15=-1
+    end
+    if isHovered(488,623,139,194) then
+      hover.button16=1
+    else
+      hover.button16=-1
+    end
+    if isHovered(345,545,210,265) then
+      hover.button17=1
+    else
+      hover.button17=-1
     end
   end
   if screenState=="Play" then
@@ -425,10 +492,6 @@ end
 love.graphics.setLineWidth(4)
 --love.draw function draws every frame
 function love.draw()
-  --hiding screen fade on settings to hide low FPS workaround
-  if screenState=="Launch" or screenState=="Play" then
-    love.graphics.setBackgroundColor(screenBrightness,screenBrightness,screenBrightness)
-  end
   --setting a new origin to the center of the window
   love.graphics.translate(width/2,height/2)
   --refreshing colour for text etc
@@ -633,6 +696,60 @@ function love.draw()
       love.graphics.setColor(1,1,1)
     end
     love.graphics.rectangle("fill",-325,-22,120,50)--finish effect
+    if hover.button9==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",-505,35,60,40)--1/2
+    if hover.button10==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",-430,35,60,40)--1/3
+    if hover.button11==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",-358,35,60,40)--1/4
+    if hover.button12==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",-285,35,60,40)--1/6
+    if hover.button13==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",-207,35,60,40)--1/8
+    if hover.button14==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",-723,325,140,60)--save
+    if hover.button15==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",266,139,125,55)--next
+    if hover.button16==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",488,139,135,55)--back
+    if hover.button17==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",345,210,200,55)--delete
     love.graphics.setColor(1,1,1)
     love.graphics.print(mousePosX,-400,-415)
     love.graphics.print(mousePosY,-400,-390)
@@ -642,12 +759,12 @@ function love.draw()
     love.graphics.print("Orient.:       U  L  D  R",-650,-130,0,1.5,1.5)
     love.graphics.print("Mode:  Master  Regular",-650,-80,0,1.5,1.5)
     love.graphics.print("Effect:  Regular  Finish",-650,-28,0,1.5,1.5)
-    love.graphics.print("Snap:   1/2  1/3  1/4  1/6  1/8",-650,28,0,1.5,1.5)
+    love.graphics.print("Snap:   1/2  1/3  1/4  1/6  1/8"..snap,-650,28,0,1.5,1.5)
     love.graphics.print("Next",270,130,0,2,2)
     love.graphics.print("Back",490,130,0,2,2)
     love.graphics.print("SAVE",-720,320,0,2,2)
     love.graphics.setColor(0.9,0.2,0.2)
-    love.graphics.print("Delete",350,200,0,2,2)
+    love.graphics.print("Delete",355,200,0,2,2)
     love.graphics.setColor(1,1,1)
     love.graphics.line(170,-400,170,400)
     love.graphics.print("Current Note:",210,-350,0,2,2)
