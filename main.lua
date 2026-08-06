@@ -36,22 +36,38 @@ function hit(key)
   print(relativeTime,key)
   return(relativeTime)
 end
+--[[
 function saveMap(notes, difficulty)
   local result
-  local path = "Assets/Maps/"..difficulty..".s2d"
-  if notes == loadMap(difficulty) then
-    result = "No changes."
-  else
-    local lines={}
-    for _, note in ipairs(notes) do
-      table.insert(lines,string.format("%s,%d,%s,%s",note.Type,note.Timing,note.Mode,note.Effect))
-    end
-    local text = table.concat(notes, "\n")
-    local ok, err = love.filesystem.write(path, text  )
-    result = ok and "Saved." or ("Save failed: "..tostring(err))
+  local path = "Assets/Maps/" .. difficulty .. ".s2d"
+  local lines = {}
+  for _, note in ipairs(notes) do
+    lines[#lines + 1] = note:serialize()
   end
-  print("Result"..result)
+  local ok, err = love.filesystem.write(path,table.concat(lines, "\n"))
+  result = ok and "Saved." or ("Save failed: " .. tostring(err))
+  print(result)
 end
+--]]
+function saveMap(notes, difficulty)
+  local result
+  local path = love.filesystem.getWorkingDirectory().."/Maps/" .. difficulty .. ".s2d"
+  print("path:"..path)
+  local lines = {}
+  local file,err = io.open(path, "w")
+  if not file then
+    print("Save failed: "..err)
+    return
+  end
+  for _, note in ipairs(notes) do
+    lines[#lines + 1] = note:serialize()
+  end
+  file:write(table.concat(lines, "\n"))
+  file:close()
+  result = "Saved."
+  print(result)
+end
+
 function love.keypressed(key)
   if screenState=="Play" then
     if players==2 then

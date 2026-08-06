@@ -6,6 +6,9 @@ function Note:new(Type,Timing,Mode,Effect)
   self.Mode = Mode
   self.Effect = Effect
 end
+function Note:serialize()
+  return string.format("%s,%s,%s,%s",self.Type,self.Timing,self.Mode,self.Effect)
+end
 function loadMap(difficulty)
     local notes = {}
 
