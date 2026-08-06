@@ -52,6 +52,7 @@ end
 function saveMap(notes, difficulty)
   local result
   local path = love.filesystem.getWorkingDirectory().."/Maps/" .. difficulty .. ".s2d"
+  
   print("path:"..path)
   local lines = {}
   local file,err = io.open(path, "w")
@@ -67,7 +68,6 @@ function saveMap(notes, difficulty)
   result = "Saved."
   print(result)
 end
-
 function love.keypressed(key)
   if screenState=="Play" then
     if players==2 then
@@ -292,6 +292,12 @@ function love.mousepressed(x,y,button,number)
       end
       if isHovered(-723,-583,325,385) then--SAVE
         saveMap(notes,difficulty)
+      end
+      if isHovered(266,391,139,194) then
+        currentNote=currentNote+1
+      end
+      if isHovered(488,623,139,194) then
+        currentNote=currentNote-1
       end
     end
   end
@@ -775,7 +781,7 @@ function love.draw()
     love.graphics.print("Orient.:       U  L  D  R",-650,-130,0,1.5,1.5)
     love.graphics.print("Mode:  Master  Regular",-650,-80,0,1.5,1.5)
     love.graphics.print("Effect:  Regular  Finish",-650,-28,0,1.5,1.5)
-    love.graphics.print("Snap:   1/2  1/3  1/4  1/6  1/8"..snap,-650,28,0,1.5,1.5)
+    love.graphics.print("Snap:   1/2  1/3  1/4  1/6  1/8   "..snap,-650,28,0,1.5,1.5)
     love.graphics.print("Next",270,130,0,2,2)
     love.graphics.print("Back",490,130,0,2,2)
     love.graphics.print("SAVE",-720,320,0,2,2)
