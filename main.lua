@@ -378,7 +378,7 @@ function love.update(dt)
     else
       hover.button4=-1
     end
-    if isHovered(-505,-365,-73,23) then
+    if isHovered(-505,-365,-73,-23) then
       hover.button5=1
     else
       hover.button5=-1
@@ -387,6 +387,16 @@ function love.update(dt)
       hover.button6=1
     else
       hover.button6=-1
+    end
+    if isHovered(-505,-340,-22,38) then
+      hover.button7=1
+    else
+      hover.button7=-1
+    end
+    if isHovered(-325,-105,-22,28) then
+      hover.button8=1
+    else
+      hover.button8=-1
     end
   end
   if screenState=="Play" then
@@ -604,13 +614,25 @@ function love.draw()
     else
       love.graphics.setColor(1,1,1)
     end
-    love.graphics.rectangle("fill",-505,-73,140,50)
+    love.graphics.rectangle("fill",-505,-73,140,50)--master note
     if hover.button6==1 then
       love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
     else
       love.graphics.setColor(1,1,1)
     end
-    love.graphics.rectangle("fill",-347,-73,160,50)
+    love.graphics.rectangle("fill",-347,-73,165,50)--regular note
+    if hover.button7==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",-505,-22,165,50)--regular effect
+    if hover.button8==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",-325,-22,120,50)--finish effect
     love.graphics.setColor(1,1,1)
     love.graphics.print(mousePosX,-400,-415)
     love.graphics.print(mousePosY,-400,-390)
@@ -620,9 +642,10 @@ function love.draw()
     love.graphics.print("Orient.:       U  L  D  R",-650,-130,0,1.5,1.5)
     love.graphics.print("Mode:  Master  Regular",-650,-80,0,1.5,1.5)
     love.graphics.print("Effect:  Regular  Finish",-650,-28,0,1.5,1.5)
-    love.graphics.print("Step:",-650,20,0,1.5,1.5)
-    love.graphics.print("Next:",-650,70)
-    love.graphics.print("Back:",-650,110)
+    love.graphics.print("Snap:   1/2  1/3  1/4  1/6  1/8",-650,28,0,1.5,1.5)
+    love.graphics.print("Next",270,130,0,2,2)
+    love.graphics.print("Back",490,130,0,2,2)
+    love.graphics.print("SAVE",-720,320,0,2,2)
     love.graphics.setColor(0.9,0.2,0.2)
     love.graphics.print("Delete",350,200,0,2,2)
     love.graphics.setColor(1,1,1)
@@ -632,6 +655,7 @@ function love.draw()
       love.graphics.print("Type: "..notes[currentNote].Type,300,-250,0,1.5,1.5)
       love.graphics.print("Timing: "..notes[currentNote].Timing,300,-210,0,1.5,1.5)
       love.graphics.print("Mode: "..notes[currentNote].Mode,300,-170,0,1.5,1.5)
+      love.graphics.print("Effect:"..notes[currentNote].Effect,300,-130,0,1.5,1.5)
     else
       love.graphics.print("No notes",300,-250,0,1.5,1.5)
     end

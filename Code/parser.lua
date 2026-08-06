@@ -1,9 +1,10 @@
 Classic = require "Libraries/classic"
 local Note = Classic:extend()
-function Note:new(Type,Timing,Mode)
+function Note:new(Type,Timing,Mode,Effect)
   self.Type = Type
   self.Timing = Timing
   self.Mode = Mode
+  self.Effect = Effect
 end
 function loadMap(difficulty)
     local notes = {}
@@ -16,15 +17,15 @@ function loadMap(difficulty)
     end
 
     for line in contents:gmatch("[^\r\n]+") do
-        local orientation, timing, mode = line:match("([^,]+),([^,]+),([^,]+)")
-        if orientation and timing and mode then
-            table.insert(notes, Note(orientation, tonumber(timing), mode))
+        local orientation, timing, mode, effect = line:match("([^,]+),([^,]+),([^,]+),([^,]+)")
+        if orientation and timing and mode and effect then
+            table.insert(notes, Note(orientation, tonumber(timing), mode, effect))
         else
           error("E002")
         end
     end
     for i, note in ipairs(notes) do
-        print("Index: ", i, note.Type, note.Timing, note.Mode)
+        print("Index: ", i, note.Type, note.Timing, note.Mode, note.Effect)
     end
     return notes
 end

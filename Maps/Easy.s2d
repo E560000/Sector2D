@@ -1,4 +1,4 @@
-l,1000,master
-r,3000,master
-u,5000,master
-d,7000,master
+l,1000,master,regular
+r,3000,master,regular
+u,5000,master,regular
+d,7000,master,finish
