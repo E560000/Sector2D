@@ -10,6 +10,7 @@ require "Code/parser"
 --Libraries
 Classic = require "Libraries/classic"
 function love.load()
+  --prerequisites
   notes = loadMap(difficulty)
 end
 function isHovered(x1,x2,y1,y2)
@@ -35,25 +36,6 @@ function hit(key)
   local relativeTime=time*1000-startTime*1000
   print(relativeTime,key)
   return(relativeTime)
-end
-function saveMap(notes, difficulty)
-  local result
-  local path = love.filesystem.getWorkingDirectory().."/Maps/" .. difficulty .. ".s2d"
-  
-  print("path:"..path)
-  local lines = {}
-  local file,err = io.open(path, "w")
-  if not file then
-    print("Save failed: "..err)
-    return
-  end
-  for _, note in ipairs(notes) do
-    lines[#lines + 1] = note:serialize()
-  end
-  file:write(table.concat(lines, "\n"))
-  file:close()
-  result = "Saved."
-  print(result)
 end
 function love.keypressed(key)
   if screenState=="Play" then

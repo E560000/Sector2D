@@ -7,7 +7,7 @@ function love.conf(f)
   f.window.resizable = true
   f.window.minwidth = 1920
   f.window.minheight = 1080
-  f.window.fullscreen = false
+  f.window.fullscreen = true
   f.window.vsync = false
   f.window.icon = "Assets/Images/logo.png"
 end

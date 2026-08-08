@@ -1,2 +1,5 @@
+This is a comprehensive list of all errors you may encounter that aren't caused by bad code.
+Find issue and solution in the following format:
+Code: Error. Suggestion.
 E001: No Map Detected. Check Maps folder.
 E002: Map Invalid. Check formatting.

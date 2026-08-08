@@ -9,6 +9,25 @@ end
 function Note:serialize()
   return string.format("%s,%s,%s,%s",self.Type,self.Timing,self.Mode,self.Effect)
 end
+function saveMap(notes, difficulty)
+  local result
+  local path = love.filesystem.getWorkingDirectory().."/Maps/" .. difficulty .. ".s2d"
+  
+  print("path:"..path)
+  local lines = {}
+  local file,err = io.open(path, "w")
+  if not file then
+    print("Save failed: "..err)
+    return
+  end
+  for _, note in ipairs(notes) do
+    lines[#lines + 1] = note:serialize()
+  end
+  file:write(table.concat(lines, "\n"))
+  file:close()
+  result = "Saved."
+  print(result)
+end
 function loadMap(difficulty)
     local notes = {}
 
