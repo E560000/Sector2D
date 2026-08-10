@@ -3,3 +3,4 @@ Find issue and solution in the following format:
 Code: Error. Suggestion.
 E001: No Map Detected. Check Maps folder.
 E002: Map Invalid. Check formatting.
+E003: No Notes Table in memory. Load a new Map.

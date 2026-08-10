@@ -12,6 +12,7 @@ Classic = require "Libraries/classic"
 function love.load()
   --prerequisites
   notes = loadMap(difficulty)
+  love.audio.setVolume(volume)
 end
 function isHovered(x1,x2,y1,y2)
   return mousePosX>=x1 and mousePosX<=x2 and mousePosY>=y1 and mousePosY<=y2
@@ -281,6 +282,10 @@ function love.mousepressed(x,y,button,number)
           print("No note to delete!")
         end
       end
+      if isHovered(345,545,270,325) then--New Note
+        print("New Note click")
+        table.insert(notes,#notes+1,Note("l",tonumber((notes[currentNote].Timing+(bpm/60)*snap*1000)),"regular","regular"))
+      end
     end
   end
 end
@@ -473,6 +478,11 @@ function love.update(dt)
       hover.button17=1
     else
       hover.button17=-1
+    end
+    if isHovered(345,545,270,325) then
+      hover.button18=1
+    else
+      hover.button18=-1
     end
   end
   if screenState=="Play" then
@@ -765,6 +775,12 @@ function love.draw()
       love.graphics.setColor(1,1,1)
     end
     love.graphics.rectangle("fill",345,210,200,55)--delete
+    if hover.button18==1 then
+      love.graphics.setColor(hoverColour.r,hoverColour.g,hoverColour.b)
+    else
+      love.graphics.setColor(1,1,1)
+    end
+    love.graphics.rectangle("fill",345,270,200,55)
     love.graphics.setColor(1,1,1)
     love.graphics.print(mousePosX,-400,-415)
     love.graphics.print(mousePosY,-400,-390)
@@ -778,12 +794,16 @@ function love.draw()
     love.graphics.print("Next",270,130,0,2,2)
     love.graphics.print("Back",490,130,0,2,2)
     love.graphics.print("SAVE",-720,320,0,2,2)
+    love.graphics.print("New Note",350,270,0,1.5,1.5)
     love.graphics.setColor(0.9,0.2,0.2)
     love.graphics.print("Delete",355,200,0,2,2)
     love.graphics.setColor(1,1,1)
     love.graphics.line(170,-400,170,400)
     love.graphics.print("Current Note:",210,-350,0,2,2)
     love.graphics.print("Index:"..currentNote,300,-290,0,1.5,1.5)
+    if not notes then
+      error("E003")
+    end
     if notes[currentNote] then
       love.graphics.print("Type: "..notes[currentNote].Type,300,-250,0,1.5,1.5)
       love.graphics.print("Timing: "..notes[currentNote].Timing,300,-210,0,1.5,1.5)

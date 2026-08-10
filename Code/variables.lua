@@ -42,7 +42,6 @@ songNameBright=0
 songName="Death By Glamour -- Toby Fox"
 screenBrightness=0
 -- Editor
-notes={}
 currentNote=2
 bpm=148
 editorBpmMin=60

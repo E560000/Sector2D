@@ -1,5 +1,5 @@
 Classic = require "Libraries/classic"
-local Note = Classic:extend()
+Note = Classic:extend()
 function Note:new(Type,Timing,Mode,Effect)
   self.Type = Type
   self.Timing = Timing
