@@ -283,8 +283,23 @@ function love.mousepressed(x,y,button,number)
         end
       end
       if isHovered(345,545,270,325) then--New Note
-        print("New Note click")
-        table.insert(notes,#notes+1,Note("l",tonumber((notes[currentNote].Timing+(bpm/60)*snap*1000)),"regular","regular"))
+        while not notes[currentNote] do
+          currentNote=currentNote-1
+        end
+        while notes[currentNote+1] do
+          currentNote=currentNote+1
+        end
+        table.insert(
+          notes,
+          #notes+1,
+          Note(
+            "l",
+            round(tonumber(notes[currentNote].Timing+(bpm/60)*snap*1000),0),
+            "regular",
+            "regular"
+          )
+        )
+        currentNote=currentNote+1
       end
     end
   end
