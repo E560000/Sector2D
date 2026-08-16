@@ -13,7 +13,7 @@ colourA={r=1,g=1,b=1}
 colourB={r=1,g=1,b=1}
 leftstate="unmoved"
 rightstate="unmoved"
-screenState="Launch"
+screenState="???"
 --flags for passing maps
 easyPassed=false
 mediumPassed=false
@@ -64,3 +64,4 @@ PlayBackgroundMusic=false
 PlaySettingsMusic=false
 mousePosX=0
 mousePosY=0
+dialoguecount=1

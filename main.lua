@@ -153,6 +153,11 @@ function love.keyreleased(key)
   end
 end
 function love.mousepressed(x,y,button,number)
+  if screenState=="???" then
+    if button==1 then
+      dialoguecount=dialoguecount+1
+    end
+  end
   if screenState=="Play" then
     if isHovered(-40,40,200,220) then
       if button==1 then
@@ -531,6 +536,14 @@ function love.draw()
   --refreshing colour for text etc
   love.graphics.setColor(1,1,1)
   love.graphics.setFont(rimouski)
+  if screenState=="???" then
+    if dialoguecount==1 then
+      love.graphics.print("Well, there is a man here.",-180,300)
+    elseif dialoguecount==2 then
+      love.graphics.print("He offered you an egg.",-160,300)
+    end
+    love.graphics.draw(man,-250,-300)
+  end
   --Main Menu
   if screenState=="Launch" then
     love.graphics.setColor(1,1,1)
