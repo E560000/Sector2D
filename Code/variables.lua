@@ -1,4 +1,5 @@
 --All the variables
+profiling=false
 startTime=0
 GameplayAudioPlaying=0
 backgroundMusicPlaying=0
@@ -13,7 +14,7 @@ colourA={r=1,g=1,b=1}
 colourB={r=1,g=1,b=1}
 leftstate="unmoved"
 rightstate="unmoved"
-screenState="???"
+screenState="Launch"
 --flags for passing maps
 easyPassed=false
 mediumPassed=false

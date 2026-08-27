@@ -9,10 +9,14 @@ require "Code/settings"
 require "Code/parser"
 --Libraries
 Classic = require "Libraries/classic"
+Piefiller = require "Libraries/piefiller"
 function love.load()
   --prerequisites
   notes = loadMap(difficulty)
   love.audio.setVolume(volume)
+  if profiling==true then
+    pie=Piefiller:new()
+  end
 end
 function isHovered(x1,x2,y1,y2)
   return mousePosX>=x1 and mousePosX<=x2 and mousePosY>=y1 and mousePosY<=y2
@@ -161,7 +165,12 @@ function love.mousepressed(x,y,button,number)
   if screenState=="Play" then
     if isHovered(-40,40,200,220) then
       if button==1 then
-        screenState="Launch"
+        if love.math.random(8)==8 then
+          screenState="???"
+          love.audio.play(manSong)
+        else
+          screenState="Launch"
+        end
         backgroundMusicPlaying=-1
         hitcounter=0
       end
@@ -317,6 +326,9 @@ function love.mousereleased(x,y,button)
 end
 --love.update function refreshes for every frame
 function love.update(dt)
+  if profiling==true then
+    pie:attach()
+  end
   width=love.graphics.getWidth()
   height=love.graphics.getHeight()
   mousePosX=love.mouse.getX()-width/2
@@ -527,6 +539,9 @@ function love.update(dt)
       songNameBright=0
     end
   end
+  if profiling==true then
+    pie:detach()
+  end
 end
 love.graphics.setLineWidth(4)
 --love.draw function draws every frame
@@ -541,8 +556,21 @@ function love.draw()
       love.graphics.print("Well, there is a man here.",-180,300)
     elseif dialoguecount==2 then
       love.graphics.print("He offered you an egg.",-160,300)
+    elseif dialoguecount==3 then
+      love.graphics.print("Take it?",-65,300)
+      love.graphics.print("Yes",-150,330)
+      love.graphics.print("No",80,330)
+    elseif dialoguecount==10 then
+      screenState="Launch"
+      love.audio.stop()
     end
+    
+    
     love.graphics.draw(man,-250,-300)
+    if profiling==true then
+      love.graphics.translate(-width/2,-height/2)
+      pie:draw()
+    end
   end
   --Main Menu
   if screenState=="Launch" then
@@ -573,6 +601,10 @@ function love.draw()
     love.graphics.setColor(1,1,1)
     love.graphics.setFont(rimouski)
     love.graphics.print("GUIDE:\n-Click playfield to see controls\n-Press corresponding keys to hit notes\n-Listen and look for cues on what to hit\n-Don't miss!",-350,-50,0,1,1)
+    love.graphics.translate(-width/2,-height/2)
+    if profiling==true then
+      pie:draw()
+    end
   end
   --Play screen
   if screenState=="Play" then
@@ -657,6 +689,10 @@ function love.draw()
     love.graphics.line(100,0,90,10)
     love.graphics.line(0, 0, 100, 0)
     love.graphics.rotate(-rangle)
+    love.graphics.translate(-width/2,-height/2)
+    if profiling==true then
+      pie:draw()
+    end
   end
   --Settings screen
   if screenState=="Settings" then
@@ -695,6 +731,10 @@ function love.draw()
     love.graphics.draw(button,-280,10)
     love.graphics.setColor(0,0,0)
     love.graphics.print("Change",-271,11,0,0.5,0.5)
+    if profiling==true then
+      love.graphics.translate(-width/2,-height/2)
+      pie:draw()
+    end
   end
   if screenState=="Editor" then
     love.graphics.draw(editorBackground,-800,-490)
@@ -853,6 +893,12 @@ function love.draw()
     love.graphics.rectangle("fill", handleX - 8, sliderTop - 4, 16, editorSliderHeight + 8)
     love.graphics.setColor(1,1,1)
     love.graphics.print(""..bpm, sliderRight + 30, editorSliderY - 35, 0, 1.5, 1.5)
+    if profiling==true then
+      love.graphics.translate(-width/2,-height/2)
+      love.graphics.scale(0.5,0.5)
+      pie:draw()
+      love.graphics.scale(1,1)
+    end
   end
 end
 loadEnd=love.timer.getTime()
