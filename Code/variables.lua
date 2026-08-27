@@ -4,14 +4,22 @@ startTime=0
 GameplayAudioPlaying=0
 backgroundMusicPlaying=0
 settingsMusicPlaying=0 
---constant for math purposes
+--constants for math purposes
 --epsilon for helping with float comparisons
 epsilon=0.001
 pi=math.pi
 langle=0
 rangle=0
-colourA={r=1,g=1,b=1}
-colourB={r=1,g=1,b=1}
+colourA={
+  r=1,
+  g=1,
+  b=1
+  }
+colourB={
+  r=1,
+  g=1,
+  b=1
+  }
 leftstate="unmoved"
 rightstate="unmoved"
 screenState="Launch"
@@ -33,12 +41,48 @@ goodCounter2=0
 okCounter2=0
 missCounter2=0
 --OOP for easy coding
-buttonDimensions={width=80,height=20}
-hover={button1=-1,button2=-1,button3=-1,button4=-1,button5=-1,button6=-1,button7=-1,button8=-1,button9=-1,button10=-1,button11=-1,button12=-1,button13=-1,button14=-1,button15=-1,button16=-1,button17=-1,button18=-1,button19=-1,button20=-1}
-hoverColour={r=0.8,g=0.8,b=0.8}
-titleColour={r=0.3,g=0.3,b=0.3}
+buttonDimensions={
+  width=80,
+  height=20
+  }
+hover={
+  button1=-1,
+  button2=-1,
+  button3=-1,
+  button4=-1,
+  button5=-1,
+  button6=-1,
+  button7=-1,
+  button8=-1,
+  button9=-1,
+  button10=-1,
+  button11=-1,
+  button12=-1,
+  button13=-1,
+  button14=-1,
+  button15=-1,
+  button16=-1,
+  button17=-1,
+  button18=-1,
+  button19=-1,
+  button20=-1
+  }
+hoverColour={
+  r=0.8,
+  g=0.8,
+  b=0.8
+  }
+titleColour={
+  r=0.3,
+  g=0.3,
+  b=0.3
+  }
 titleBright=0
-songNameColour={r=0.8,g=0.8,b=0.8}
+songNameColour={
+  r=0.8,
+  g=0.8,
+  b=0.8
+  }
 songNameBright=0
 songName="Death By Glamour -- Toby Fox"
 screenBrightness=0
@@ -59,7 +103,11 @@ timestamp=0
 snap=1
 increment=0
 --animations
-hitLightingColour={r=1,g=1,b=1}
+hitLightingColour={
+  r=1,
+  g=1,
+  b=1
+  }
 --initialising for menu
 PlayBackgroundMusic=false
 PlaySettingsMusic=false

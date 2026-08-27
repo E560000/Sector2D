@@ -237,7 +237,14 @@ function love.mousepressed(x,y,button,number)
     if button==1 then
       local centeredX = x - (width or love.graphics.getWidth()) / 2
       local centeredY = y - (height or love.graphics.getHeight()) / 2
-      if isHovered(editorSliderX, editorSliderX + editorSliderWidth, editorSliderY - editorSliderHeight, editorSliderY + editorSliderHeight, centeredX, centeredY) then
+      if isHovered(
+        editorSliderX, 
+        editorSliderX + editorSliderWidth, 
+        editorSliderY - editorSliderHeight, 
+        editorSliderY + editorSliderHeight, 
+        centeredX, 
+        centeredY
+        ) then
         editorSliderDragging=true
         setEditorBPM(centeredX)
       end
@@ -600,7 +607,15 @@ function love.draw()
     love.graphics.print("Sector2D",-320,-200,0,2,2)
     love.graphics.setColor(1,1,1)
     love.graphics.setFont(rimouski)
-    love.graphics.print("GUIDE:\n-Click playfield to see controls\n-Press corresponding keys to hit notes\n-Listen and look for cues on what to hit\n-Don't miss!",-350,-50,0,1,1)
+    love.graphics.print(
+      [[
+      GUIDE:
+      -Click playfield to see controls.
+      -Press corresponding keys to hit notes.
+      -Listen and look for cues on what to hit.
+      -Don't miss!
+      ]]
+      ,-350,-50,0,1,1)
     love.graphics.translate(-width/2,-height/2)
     if profiling==true then
       pie:draw()
