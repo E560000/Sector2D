@@ -37,10 +37,33 @@ function setEditorBPM(x)
   bpm = math.floor(normalized * (editorBpmMax-editorBpmMin) + editorBpmMin + 0.5)
 end
 function hit(key)
+  key1=l
   local time=love.timer.getTime()
   local relativeTime=time*1000-startTime*1000
   print(relativeTime,key)
-  return(relativeTime)
+  print("comparing hit")
+  --local delta = math.abs(notes[currentNote].Timing-relativeTime)
+  local delta = 200
+  print(notes[currentNote].type)
+  if key1==notes[currentNote].Type then
+    if delta >= hitWindowMiss then
+      hitResult="Miss"
+      return("Miss")
+    elseif delta >= hitWindowOk then
+      hitResult="Ok"
+      return("Ok")
+    elseif delta >= hitWindowGood then
+      hitResult="Good"
+      return("Good")
+    elseif delta >= hitwindowGreat then
+      hitResult="Great"
+      return("Great")
+    else
+      hitResult="MAX"
+      return("MAX")
+    end
+  end
+  print(hitResult)
 end
 function love.keypressed(key)
   if screenState=="Play" then
@@ -639,7 +662,7 @@ function love.draw()
     if players==1 then
       --Judgement counting
       love.graphics.setColor(1,1,1)
-      love.graphics.print("Perfect:"..perfectCounter1,-530,-130,0,1.5,1.5)
+      love.graphics.print("MAX:"..maxCounter1,-530,-130,0,1.5,1.5)
       love.graphics.print("Great:"..greatCounter1,-530,-80,0,1.5,1.5)
       love.graphics.print("Good:"..goodCounter1,-530,-30,0,1.5,1.5)
       love.graphics.print("OK:"..okCounter1,-530,20,0,1.5,1.5)
@@ -647,12 +670,12 @@ function love.draw()
     end
     if players==2 then
       love.graphics.setColor(1,1,1)
-      love.graphics.print("Perfect:"..perfectCounter1,-600,-130,0,1.5,1.5)
+      love.graphics.print("MAX:"..maxCounter1,-600,-130,0,1.5,1.5)
       love.graphics.print("Great:"..greatCounter1,-600,-80,0,1.5,1.5)
       love.graphics.print("Good:"..goodCounter1,-600,-30,0,1.5,1.5)
       love.graphics.print("OK:"..okCounter1,-600,20,0,1.5,1.5)
       love.graphics.print("Miss:"..missCounter1,-600,70,0,1.5,1.5)
-      love.graphics.printf(perfectCounter2..":Perfect",350,-130,170,"right",0,1.5,1.5)
+      love.graphics.printf(maxCounter2..":MAX",350,-130,170,"right",0,1.5,1.5)
       love.graphics.printf(greatCounter2..":Great",350,-80,170,"right",0,1.5,1.5)
       love.graphics.printf(goodCounter2..":Good",350,-30,170,"right",0,1.5,1.5)
       love.graphics.printf(okCounter2..":OK",350,20,170,"right",0,1.5,1.5)

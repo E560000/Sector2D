@@ -30,16 +30,21 @@ hardPassed=false
 --counters
 hitCounter1=0
 hitCounter2=0
-perfectCounter1=0
+maxCounter1=0
 greatCounter1=0
 goodCounter1=0
 okCounter1=0
 missCounter1=1
-perfectCounter2=0
+maxCounter2=0
 greatCounter2=0
 goodCounter2=0
 okCounter2=0
 missCounter2=0
+hitWindowMax=22
+hitWindowGreat=60
+hitWindowGood=106
+hitWindowOk=148
+hitWindowMiss=233
 --OOP for easy coding
 buttonDimensions={
   width=80,
@@ -87,7 +92,7 @@ songNameBright=0
 songName="Death By Glamour -- Toby Fox"
 screenBrightness=0
 -- Editor
-currentNote=2
+currentNote=1
 bpm=148
 editorBpmMin=60
 editorBpmMax=300
