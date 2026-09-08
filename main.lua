@@ -44,7 +44,7 @@ function hit(key)
   print("comparing hit")
   --local delta = math.abs(notes[currentNote].Timing-relativeTime)
   local delta = 200
-  print(notes[currentNote].type)
+  print(notes[currentNote].Type)
   if key1==notes[currentNote].Type then
     if delta >= hitWindowMiss then
       hitResult="Miss"
