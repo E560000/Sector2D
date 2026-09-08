@@ -148,6 +148,16 @@ function love.keypressed(key)
   if screenState=="Settings" then
   --settings buttons
   end
+  if screenState=="???" then
+    if key=="y" then
+      eggTaken=true
+      dialoguecount=dialoguecount+1
+    end
+    if key=="n" then
+      eggTaken=false
+      dialoguecount=dialoguecount+1
+    end
+  end
 end
 function love.keyreleased(key)
   if screenState=="Play" then
@@ -188,9 +198,10 @@ function love.mousepressed(x,y,button,number)
   if screenState=="Play" then
     if isHovered(-40,40,200,220) then
       if button==1 then
-        if love.math.random(8)==8 then
+        if love.math.random(50)==50 and manVisited==false then
           screenState="???"
           love.audio.play(manSong)
+          manVisited=true
         else
           screenState="Launch"
         end
@@ -588,9 +599,15 @@ function love.draw()
       love.graphics.print("He offered you an egg.",-160,300)
     elseif dialoguecount==3 then
       love.graphics.print("Take it?",-65,300)
-      love.graphics.print("Yes",-150,330)
-      love.graphics.print("No",80,330)
-    elseif dialoguecount==10 then
+      love.graphics.print("Yes(y)",-150,330)
+      love.graphics.print("No(n)",80,330)
+    elseif dialoguecount==4 and eggTaken==true then
+      love.graphics.print("You accepted the egg.",-160,300)
+    elseif dialoguecount==4 and eggTaken==false then
+      love.graphics.print("He looks displeased.",-160,300)
+    elseif dialoguecount==5 then
+      love.graphics.print("There is nothing left for you here.",-200,300)
+    elseif dialoguecount==6 then
       screenState="Launch"
       love.audio.stop()
     end
@@ -741,7 +758,7 @@ function love.draw()
     love.graphics.setFont(cubic)
     love.graphics.setColor(1,1,1)
     love.graphics.draw(signature,-730,200,0,0.4,0.4)
-    love.graphics.print("Version 0.2.3_Alpha", -700,325,0,0.5,0.5)
+    love.graphics.print("Version 0.2.4_Alpha", -700,325,0,0.5,0.5)
     
     --buttons
     if hover.button1==1 then      

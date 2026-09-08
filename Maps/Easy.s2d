@@ -2,3 +2,6 @@ l,1000,master,regular
 r,3000,master,regular
 u,5000,master,regular
 r,7000,master,finish
+l,9467,regular,regular
+u,11934,regular,regular
+l,13167,master,regular

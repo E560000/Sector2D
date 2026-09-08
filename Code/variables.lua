@@ -119,3 +119,5 @@ PlaySettingsMusic=false
 mousePosX=0
 mousePosY=0
 dialoguecount=1
+manVisited=false
+eggTaken=false
